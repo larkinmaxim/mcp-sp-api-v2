@@ -1,0 +1,204 @@
+{
+  "business_validation_rules": {
+    "transport_type_rules": {
+      "simple_road": {
+        "required_elements": ["number", "status", "scheduling_unit", "orders", "stops"],
+        "minimum_stops": 2,
+        "maximum_stops": 10,
+        "required_stop_types": ["loading", "unloading"],
+        "allows_pricing": true,
+        "allows_vehicle_specification": true,
+        "parameter_restrictions": {
+          "forbidden_qualifiers": ["visibility.ocean.product", "ocean.scac.no", "ocean.bl.no", "ocean.container.no"],
+          "allowed_custom_parameters": true
+        }
+      },
+      "complex_road": {
+        "required_elements": ["number", "status", "scheduling_unit", "carrier_creditor_number", "orders", "stops"],
+        "minimum_stops": 2,
+        "maximum_stops": 20,
+        "required_stop_types": ["loading", "unloading"],
+        "allows_order_items": true,
+        "requires_carrier_creditor": true,
+        "parameter_restrictions": {
+          "forbidden_qualifiers": ["visibility.ocean.product", "ocean.scac.no", "ocean.bl.no", "ocean.container.no"],
+          "required_order_parameters": ["custom.preassignedCarrierCreditorNumber"],
+          "allowed_custom_parameters": true
+        },
+        "order_item_rules": {
+          "required_fields": ["number", "short_description", "material_number"],
+          "required_quantities": ["weight"],
+          "required_parameters": ["material", "plantCode", "unitOfMeasurement"]
+        }
+      },
+      "ocean_visibility": {
+        "required_elements": ["number", "status", "scheduling_unit", "carrier_creditor_number", "orders", "stops", "parameters"],
+        "fixed_values": {
+          "status": "NTO",
+          "scheduling_unit": "Ocean Visibility", 
+          "carrier_creditor_number": "Ocean"
+        },
+        "required_stops": {
+          "count": 2,
+          "types": ["Departure", "Arrival"]
+        },
+        "required_parameters": [
+          "visibility.ocean.product",
+          "ocean.scac.no",
+          "ocean.bl.no",
+          "ocean.container.no"
+        ],
+        "parameter_restrictions": {
+          "mandatory_fixed_parameters": {
+            "visibility.ocean.product": "true"
+          },
+          "forbidden_parameters": ["vehicle", "prices"]
+        }
+      }
+    },
+    "cross_field_validation": {
+      "carrier_creditor_consistency": {
+        "description": "Validates carrier creditor number consistency between transport order and order parameters",
+        "applies_to": ["complex_road"],
+        "rule": "transport.carrier_creditor_number == order_parameter.custom.preassignedCarrierCreditorNumber",
+        "error_message": "Carrier creditor number must be consistent between transport order and order parameters"
+      },
+      "stop_reference_integrity": {
+        "description": "Validates that all referenced stops exist",
+        "applies_to": ["all"],
+        "rule": "all_stop_ids_in_orders_exist_in_stops",
+        "error_message": "All loading and unloading stop IDs must reference existing stops"
+      },
+      "date_sequence_validation": {
+        "description": "Validates logical date sequence across stops",
+        "applies_to": ["all"],
+        "rule": "stop_dates_in_logical_sequence",
+        "error_message": "Stop dates should follow a logical sequence from loading to unloading"
+      },
+      "ocean_parameter_completeness": {
+        "description": "Validates that ocean-specific parameters are complete",
+        "applies_to": ["ocean_visibility"],
+        "rule": "ocean_parameters_complete",
+        "error_message": "Ocean visibility orders must include SCAC code, Bill of Lading, and Container number"
+      }
+    },
+    "format_validation": {
+      "date_formats": {
+        "iso_datetime": {
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}([+-]\\d{2}:\\d{2}|Z)$",
+          "description": "ISO 8601 datetime format",
+          "examples": ["2025-09-25T00:00:00+02:00", "2025-09-25T00:00:00Z"]
+        },
+        "date_only": {
+          "pattern": "^\\d{8}$",
+          "description": "YYYYMMDD date format",
+          "examples": ["20250915"]
+        }
+      },
+      "identifier_formats": {
+        "scac_code": {
+          "pattern": "^[A-Z0-9]{4}$",
+          "description": "4-character Standard Carrier Alpha Code",
+          "examples": ["MAEU", "MSCU", "COSCO"]
+        },
+        "container_number": {
+          "pattern": "^[A-Z]{4}[0-9]{6,7}$|^[A-Z0-9]+$",
+          "description": "Standard container number format",
+          "examples": ["MMAU1291440", "COSU1234567"]
+        },
+        "country_code": {
+          "pattern": "^[A-Z]{2}$",
+          "description": "2-letter ISO country code",
+          "examples": ["DE", "US", "PL", "VN"]
+        }
+      }
+    },
+    "conditional_requirements": {
+      "complex_road_requirements": {
+        "condition": "transport_type == 'complex_road'",
+        "then_required": [
+          "carrier_creditor_number",
+          "order_items_with_parameters"
+        ]
+      },
+      "ocean_visibility_requirements": {
+        "condition": "transport_type == 'ocean_visibility'",
+        "then_required": [
+          "ocean.scac.no",
+          "ocean.bl.no", 
+          "ocean.container.no",
+          "visibility.ocean.product"
+        ],
+        "then_forbidden": [
+          "vehicle",
+          "prices",
+          "order_items"
+        ]
+      },
+      "pricing_requirements": {
+        "condition": "prices_element_present",
+        "then_required": [
+          "reference",
+          "currency",
+          "mode"
+        ]
+      }
+    },
+    "data_integrity_rules": {
+      "quantity_consistency": {
+        "description": "Validates that quantities are consistent across order and items",
+        "applies_to": ["complex_road"],
+        "error_message": "Order-level quantities should match sum of item-level quantities"
+      },
+      "stop_index_sequence": {
+        "description": "Validates that stop indices follow proper sequence",
+        "rule": "stop_indices_sequential",
+        "error_message": "Stop indices must be sequential starting from 0"
+      },
+      "parameter_value_consistency": {
+        "description": "Validates that parameter values are consistent where referenced multiple times",
+        "applies_to": ["complex_road"],
+        "examples": [
+          "material number consistency between order and item levels",
+          "carrier creditor number consistency"
+        ]
+      }
+    },
+    "business_logic_rules": {
+      "minimum_viable_transport_order": {
+        "description": "Defines minimum elements for a viable transport order",
+        "required_elements": [
+          "unique_transport_number",
+          "at_least_one_loading_stop",
+          "at_least_one_unloading_stop",
+          "valid_datetime_periods",
+          "complete_location_information"
+        ]
+      },
+      "ocean_visibility_specifics": {
+        "description": "Ocean visibility specific business rules",
+        "rules": [
+          "exactly_two_stops_departure_arrival",
+          "no_pricing_information",
+          "no_vehicle_specifications",
+          "mandatory_ocean_parameters",
+          "fixed_organizational_values"
+        ]
+      }
+    }
+  },
+  "validation_severity_levels": {
+    "ERROR": {
+      "description": "Critical validation failures that prevent XML generation",
+      "examples": ["missing required fields", "invalid data types", "business rule violations"]
+    },
+    "WARNING": {
+      "description": "Issues that should be reviewed but don't prevent XML generation", 
+      "examples": ["missing optional recommended fields", "unusual but valid values"]
+    },
+    "INFO": {
+      "description": "Informational messages about the generated XML",
+      "examples": ["default values applied", "optional fields omitted"]
+    }
+  }
+}

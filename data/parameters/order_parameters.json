@@ -1,0 +1,141 @@
+{
+  "simple_road": {
+    "required_fields": [
+      {
+        "name": "order_number",
+        "type": "string",
+        "description": "Order details number",
+        "example": "1404338_1"
+      },
+      {
+        "name": "loading_stop_ids", 
+        "type": "array",
+        "description": "Array of loading stop IDs",
+        "example": ["Departure"]
+      },
+      {
+        "name": "unloading_stop_ids",
+        "type": "array",
+        "description": "Array of unloading stop IDs",
+        "example": ["Arrival"]
+      }
+    ],
+    "optional_fields": [
+      {
+        "name": "weight_value",
+        "type": "number",
+        "description": "Order weight",
+        "unit": "kg",
+        "example": 23106
+      },
+      {
+        "name": "loading_meter",
+        "type": "number",
+        "description": "Loading meter value",
+        "unit": "m"
+      },
+      {
+        "name": "distance_value",
+        "type": "number",
+        "description": "Distance value",
+        "unit": "km",
+        "example": 1153
+      },
+      {
+        "name": "comment",
+        "type": "string",
+        "description": "Order comment",
+        "example": "rolls in mm : 2800"
+      }
+    ]
+  },
+  "complex_road": {
+    "required_fields": [
+      {
+        "name": "order_number",
+        "type": "string",
+        "description": "Order details number",
+        "example": "0081310198"
+      },
+      {
+        "name": "loading_stop_ids", 
+        "type": "array",
+        "description": "Array of loading stop IDs",
+        "example": ["Departure"]
+      },
+      {
+        "name": "unloading_stop_ids",
+        "type": "array",
+        "description": "Array of unloading stop IDs",
+        "example": ["Arrival"]
+      }
+    ],
+    "optional_fields": [
+      {
+        "name": "incoterms",
+        "type": "string",
+        "description": "International Commercial Terms",
+        "example": "DAP"
+      }
+    ],
+    "order_items": {
+      "required_fields": [
+        {
+          "name": "item_number",
+          "type": "string",
+          "description": "Order item number",
+          "example": "000010"
+        },
+        {
+          "name": "short_description",
+          "type": "string",
+          "description": "Item description",
+          "example": "GLYCOL ETHER EB"
+        },
+        {
+          "name": "material_number",
+          "type": "string",
+          "description": "Material number",
+          "example": "0205LB"
+        }
+      ],
+      "quantities": [
+        {
+          "name": "weight",
+          "qualifier": "weight",
+          "unit_options": ["KG", "LBR", "TON"]
+        },
+        {
+          "name": "custom_measurement",
+          "qualifier": "custom.unit.of.measurement"
+        }
+      ]
+    }
+  },
+  "ocean_visibility": {
+    "required_fields": [
+      {
+        "name": "order_number",
+        "type": "string",
+        "description": "Order details number (same as transport order number)",
+        "example": "4500831479-20"
+      },
+      {
+        "name": "loading_stop_ids", 
+        "type": "array",
+        "description": "Array of loading stop IDs",
+        "example": ["Departure"]
+      },
+      {
+        "name": "unloading_stop_ids",
+        "type": "array",
+        "description": "Array of unloading stop IDs",
+        "example": ["Arrival"]
+      }
+    ],
+    "fixed_values": {
+      "status": "N",
+      "scheduling_unit": "Ocean Visibility"
+    }
+  }
+}

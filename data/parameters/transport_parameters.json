@@ -1,0 +1,169 @@
+{
+  "simple_road": {
+    "required_fields": [
+      {
+        "name": "scheduling_unit",
+        "type": "string",
+        "description": "The scheduling unit for the transport order",
+        "example": "Wörth"
+      },
+      {
+        "name": "status",
+        "type": "string",
+        "description": "Transport order status",
+        "allowed_values": ["N", "D", "P", "C"],
+        "default": "N",
+        "example": "N"
+      },
+      {
+        "name": "number",
+        "type": "string",
+        "description": "Transport order number",
+        "example": "1404338"
+      }
+    ],
+    "optional_fields": [
+      {
+        "name": "vehicle",
+        "type": "string",
+        "description": "Vehicle type specification",
+        "example": "MEGA:Stehend",
+        "required": false
+      },
+      {
+        "name": "carrier_creditor_number",
+        "type": "string",
+        "description": "Carrier creditor identification number",
+        "example": "0000203512"
+      },
+      {
+        "name": "weight_value",
+        "type": "number",
+        "description": "Total weight value",
+        "unit": "kg"
+      },
+      {
+        "name": "volume_value",
+        "type": "number",
+        "description": "Total volume value"
+      },
+      {
+        "name": "price_reference",
+        "type": "number",
+        "description": "Reference price",
+        "example": 845.0
+      },
+      {
+        "name": "price_currency",
+        "type": "string",
+        "description": "Currency code",
+        "default": "EUR",
+        "example": "EUR"
+      },
+      {
+        "name": "price_mode",
+        "type": "string",
+        "description": "Pricing mode",
+        "default": "DEFAULT",
+        "example": "DEFAULT"
+      }
+    ]
+  },
+  "complex_road": {
+    "required_fields": [
+      {
+        "name": "scheduling_unit",
+        "type": "string",
+        "description": "The scheduling unit for the transport order",
+        "example": "BCO"
+      },
+      {
+        "name": "status",
+        "type": "string",
+        "description": "Transport order status",
+        "allowed_values": ["N", "D", "P", "C"],
+        "default": "D",
+        "example": "D"
+      },
+      {
+        "name": "number",
+        "type": "string",
+        "description": "Transport order number",
+        "example": "0081310198"
+      },
+      {
+        "name": "carrier_creditor_number",
+        "type": "string",
+        "description": "Carrier creditor identification number",
+        "example": "0000203512"
+      }
+    ],
+    "optional_fields": [
+      {
+        "name": "weight_value",
+        "type": "number",
+        "description": "Total weight value",
+        "unit": "kg",
+        "default": 0.0
+      },
+      {
+        "name": "volume_value",
+        "type": "number",
+        "description": "Total volume value",
+        "default": 0.0
+      },
+      {
+        "name": "incoterms",
+        "type": "string",
+        "description": "International Commercial Terms",
+        "example": "DAP"
+      }
+    ]
+  },
+  "ocean_visibility": {
+    "fixed_values": {
+      "scheduling_unit": "Ocean Visibility",
+      "carrier_creditor_number": "Ocean",
+      "status": "NTO"
+    },
+    "required_fields": [
+      {
+        "name": "number",
+        "type": "string",
+        "description": "Transport order number",
+        "example": "4500831479-20"
+      }
+    ],
+    "ocean_parameters": [
+      {
+        "name": "ocean.scac.no",
+        "type": "string",
+        "description": "Standard Carrier Alpha Code (4 characters)",
+        "validation": "^[A-Z0-9]{4}$",
+        "example": "MAEU",
+        "required": true
+      },
+      {
+        "name": "ocean.bl.no",
+        "type": "string",
+        "description": "Bill of Lading number",
+        "example": "MAEU258327258",
+        "required": true
+      },
+      {
+        "name": "ocean.container.no",
+        "type": "string",
+        "description": "Container identification number",
+        "example": "MMAU1291440",
+        "required": true
+      },
+      {
+        "name": "ocean.booking.no",
+        "type": "string",
+        "description": "Booking reference number",
+        "example": "",
+        "required": false
+      }
+    ]
+  }
+}

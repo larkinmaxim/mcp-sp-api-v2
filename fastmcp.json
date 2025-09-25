@@ -1,0 +1,32 @@
+{
+  "$schema": "https://gofastmcp.com/public/schemas/fastmcp.json/v1.json",
+  "source": {
+    "path": "tools/main_tool.py",
+    "entrypoint": "app"
+  },
+  "environment": {
+    "python": "3.11",
+    "requirements": "requirements.txt",
+    "project": "."
+  },
+  "deployment": {
+    "transport": "http",
+    "host": "0.0.0.0",
+    "port": 8000,
+    "path": "/mcp",
+    "log_level": "INFO",
+    "env": {
+      "ENV": "production",
+      "PYTHONPATH": "."
+    },
+    "cwd": ".",
+    "args": ["--show-banner"]
+  },
+  "metadata": {
+    "name": "Transport Order XML Generator",
+    "description": "FastMCP server for generating valid transport order XML files for Transporeon API",
+    "version": "1.0.0",
+    "author": "Transport Order Generator Team",
+    "license": "MIT"
+  }
+}

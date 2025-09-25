@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<transport_orders xmlns="http://xch.transporeon.com/soap/">
+    <transport_order xmlns="http://xch.transporeon.com/soap/">
+        <number>1404338</number>
+        <status>N</status>
+        <scheduling_unit>Wörth</scheduling_unit>
+        <vehicle>MEGA:Stehend</vehicle>
+        <prices>
+            <reference>845.0</reference>
+            <currency>EUR</currency>
+            <mode>DEFAULT</mode>
+        </prices>
+        <orders>
+            <order_details>
+                <number>1404338_1</number>
+                <weight unit="kg">
+                    <value>23106</value>
+                </weight>
+                <loading_meter unit="m">
+                </loading_meter>
+                <distance unit="km">
+                    <value>1153</value>
+                </distance>
+                <comment>rolls in mm : 2800&lt;br&gt;&lt;br&gt;&lt;br&gt;</comment>
+                <loading_stop_ids>
+                    <loading_stop_id>1</loading_stop_id>
+                </loading_stop_ids>
+                <unloading_stop_ids>
+                    <unloading_stop_id>2</unloading_stop_id>
+                </unloading_stop_ids>
+            </order_details>
+        </orders>
+        <stops>
+            <stop>
+                <id>1</id>
+                <index>0</index>
+                <location>
+                    <company_name>Papierfabrik Palm (PM 6)</company_name>
+                    <street>Am Oberwald 2</street>
+                    <zip>76744</zip>
+                    <city>Wörth</city>
+                    <country>DE</country>
+                </location>
+                <date_time_period>
+                    <start>2025-09-25T00:00:00+02:00</start>
+                    <end>2025-09-25T23:59:00+02:00</end>
+                    <timezone>Europe/Berlin</timezone>
+                </date_time_period>
+            </stop>
+            <stop>
+                <id>2</id>
+                <index>0</index>
+                <location>
+                    <company_name>WOK Sp. z o.o.</company_name>
+                    <street>Podgórna 104</street>
+                    <zip>87300</zip>
+                    <city>Brodnica</city>
+                    <country>PL</country>
+                    <comment>ZF: 12:00</comment>
+                </location>
+                <date_time_period>
+                    <start>2025-09-29T00:00:00+02:00</start>
+                    <end>2025-09-29T00:00:00+02:00</end>
+                    <timezone>Europe/Berlin</timezone>
+                </date_time_period>
+            </stop>
+        </stops>
+        <parameters>
+            <parameter qualifier="custom.important.info">&lt;span style="color: #ff0000; font-size: 10pt;"&gt;&lt;/span&gt;</parameter>
+        </parameters>
+    </transport_order>
+</transport_orders>

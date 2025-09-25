@@ -1,0 +1,229 @@
+{
+  "field_validation_rules": {
+    "general": {
+      "required_field": {
+        "rule": "not_empty",
+        "error_message": "This field is required and cannot be empty"
+      },
+      "string_field": {
+        "rule": "string_type",
+        "error_message": "Field must be a valid string"
+      },
+      "number_field": {
+        "rule": "number_type", 
+        "error_message": "Field must be a valid number"
+      },
+      "array_field": {
+        "rule": "array_type",
+        "error_message": "Field must be a valid array"
+      }
+    },
+    "transport_order": {
+      "number": {
+        "required": true,
+        "type": "string",
+        "min_length": 1,
+        "max_length": 50,
+        "pattern": "^[A-Za-z0-9_-]+$",
+        "error_message": "Transport order number must be alphanumeric with underscores or dashes, 1-50 characters"
+      },
+      "status": {
+        "required": true,
+        "type": "string",
+        "allowed_values": ["N", "D", "P", "C", "NTO"],
+        "error_message": "Status must be one of: N (New), D (Dispatched), P (Planned), C (Completed), NTO (New Transport Order)"
+      },
+      "scheduling_unit": {
+        "required": true,
+        "type": "string",
+        "min_length": 1,
+        "max_length": 100,
+        "error_message": "Scheduling unit is required and must be 1-100 characters"
+      },
+      "carrier_creditor_number": {
+        "required": false,
+        "type": "string",
+        "pattern": "^[0-9]{10}$|^Ocean$",
+        "error_message": "Carrier creditor number must be 10 digits or 'Ocean' for ocean visibility"
+      },
+      "vehicle": {
+        "required": false,
+        "type": "string",
+        "max_length": 200,
+        "error_message": "Vehicle specification must not exceed 200 characters"
+      }
+    },
+    "pricing": {
+      "reference": {
+        "required": false,
+        "type": "number",
+        "min": 0,
+        "error_message": "Price reference must be a positive number"
+      },
+      "currency": {
+        "required": false,
+        "type": "string",
+        "pattern": "^[A-Z]{3}$",
+        "default": "EUR",
+        "error_message": "Currency must be a 3-letter ISO code (e.g., EUR, USD)"
+      },
+      "mode": {
+        "required": false,
+        "type": "string",
+        "allowed_values": ["DEFAULT", "FIXED", "NEGOTIATED"],
+        "default": "DEFAULT",
+        "error_message": "Price mode must be DEFAULT, FIXED, or NEGOTIATED"
+      }
+    },
+    "weights_volumes": {
+      "weight_value": {
+        "required": false,
+        "type": "number",
+        "min": 0,
+        "error_message": "Weight must be a positive number"
+      },
+      "volume_value": {
+        "required": false,
+        "type": "number",
+        "min": 0,
+        "error_message": "Volume must be a positive number"
+      },
+      "distance_value": {
+        "required": false,
+        "type": "number",
+        "min": 0,
+        "error_message": "Distance must be a positive number"
+      }
+    },
+    "location": {
+      "company_name": {
+        "required": true,
+        "type": "string",
+        "min_length": 1,
+        "max_length": 200,
+        "error_message": "Company name is required and must be 1-200 characters"
+      },
+      "street": {
+        "required": false,
+        "type": "string",
+        "max_length": 200,
+        "error_message": "Street address must not exceed 200 characters"
+      },
+      "zip": {
+        "required": false,
+        "type": "string",
+        "max_length": 20,
+        "error_message": "ZIP/postal code must not exceed 20 characters"
+      },
+      "city": {
+        "required": true,
+        "type": "string",
+        "min_length": 1,
+        "max_length": 100,
+        "error_message": "City is required and must be 1-100 characters"
+      },
+      "country": {
+        "required": true,
+        "type": "string",
+        "pattern": "^[A-Z]{2}$",
+        "error_message": "Country must be a 2-letter ISO country code (e.g., DE, US)"
+      },
+      "state": {
+        "required": false,
+        "type": "string",
+        "max_length": 10,
+        "error_message": "State code must not exceed 10 characters"
+      }
+    },
+    "datetime": {
+      "start": {
+        "required": true,
+        "type": "string",
+        "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}([+-]\\d{2}:\\d{2}|Z)$",
+        "error_message": "Start date must be in ISO format (e.g., 2025-09-25T00:00:00+02:00)"
+      },
+      "end": {
+        "required": true,
+        "type": "string",
+        "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}([+-]\\d{2}:\\d{2}|Z)$",
+        "error_message": "End date must be in ISO format (e.g., 2025-09-25T23:59:00+02:00)"
+      },
+      "timezone": {
+        "required": false,
+        "type": "string",
+        "pattern": "^[A-Za-z_]+/[A-Za-z_]+$",
+        "example": "Europe/Berlin",
+        "error_message": "Timezone must be in IANA format (e.g., Europe/Berlin)"
+      }
+    },
+    "ocean_specific": {
+      "scac_code": {
+        "required": true,
+        "type": "string",
+        "pattern": "^[A-Z0-9]{4}$",
+        "error_message": "SCAC code must be exactly 4 alphanumeric characters"
+      },
+      "bl_number": {
+        "required": true,
+        "type": "string",
+        "min_length": 1,
+        "max_length": 50,
+        "error_message": "Bill of Lading number is required and must be 1-50 characters"
+      },
+      "container_number": {
+        "required": true,
+        "type": "string",
+        "pattern": "^[A-Z]{4}[0-9]{7}$|^[A-Z]{4}[0-9]{6}$|^[A-Z0-9]+$",
+        "error_message": "Container number must be in valid container format"
+      },
+      "booking_number": {
+        "required": false,
+        "type": "string",
+        "max_length": 50,
+        "error_message": "Booking number must not exceed 50 characters"
+      }
+    },
+    "parameters": {
+      "qualifier": {
+        "required": true,
+        "type": "string",
+        "pattern": "^[a-zA-Z0-9._-]+$",
+        "error_message": "Parameter qualifier must contain only alphanumeric characters, dots, underscores, and hyphens"
+      },
+      "value": {
+        "required": false,
+        "type": "string",
+        "error_message": "Parameter value must be a string"
+      },
+      "shipper_visibility": {
+        "required": false,
+        "type": "string",
+        "allowed_values": ["YES", "NO"],
+        "error_message": "Shipper visibility must be YES or NO"
+      },
+      "export_to_carrier": {
+        "required": false,
+        "type": "string",
+        "allowed_values": ["YES", "NO"],
+        "error_message": "Export to carrier must be YES or NO"
+      }
+    }
+  },
+  "validation_functions": {
+    "date_range_validator": {
+      "description": "Validates that end date is after start date",
+      "applies_to": ["date_time_period"],
+      "error_message": "End date must be after start date"
+    },
+    "stop_id_uniqueness": {
+      "description": "Validates that all stop IDs are unique",
+      "applies_to": ["stops"],
+      "error_message": "Stop IDs must be unique across all stops"
+    },
+    "stop_reference_integrity": {
+      "description": "Validates that loading/unloading stop IDs reference existing stops",
+      "applies_to": ["order_details"],
+      "error_message": "Loading and unloading stop IDs must reference existing stops"
+    }
+  }
+}

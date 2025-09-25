@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<transport_orders xmlns="http://xch.transporeon.com/soap/">
+    <transport_order xmlns="http://xch.transporeon.com/soap/">
+        <number>{transport_number}</number>
+        <status>{status}</status>
+        <scheduling_unit>{scheduling_unit}</scheduling_unit>
+        <carrier_creditor_number>{carrier_creditor_number}</carrier_creditor_number>
+        {weight_element}
+        {volume_element}
+        <orders>
+            <order_details>
+                <number>{order_number}</number>
+                {incoterms_element}
+                <loading_stop_ids>
+                    {loading_stop_ids}
+                </loading_stop_ids>
+                <unloading_stop_ids>
+                    {unloading_stop_ids}
+                </unloading_stop_ids>
+                {order_items_element}
+                {order_parameters_element}
+            </order_details>
+        </orders>
+        <stops>
+            {stops}
+        </stops>
+        {transport_parameters_element}
+    </transport_order>
+</transport_orders>

@@ -1,0 +1,187 @@
+{
+  "complex_road": {
+    "order_item_parameters": {
+      "required": [
+        {
+          "qualifier": "material",
+          "description": "Material identifier",
+          "shipper_visibility": "YES",
+          "example": "0205LB"
+        },
+        {
+          "qualifier": "plantCode", 
+          "description": "Plant code identifier",
+          "shipper_visibility": "YES",
+          "example": "US61"
+        },
+        {
+          "qualifier": "unitOfMeasurement",
+          "description": "Unit of measurement for the item",
+          "shipper_visibility": "YES",
+          "example": "LBR"
+        }
+      ],
+      "optional": [
+        {
+          "qualifier": "technicalDeviation",
+          "description": "Technical deviation flag",
+          "shipper_visibility": "YES",
+          "value_type": "boolean"
+        },
+        {
+          "qualifier": "customerMaterial",
+          "description": "Customer material number",
+          "example": "0421598"
+        }
+      ]
+    }
+  },
+  "order_level_parameters": {
+    "complex_road": {
+      "required": [
+        {
+          "qualifier": "custom.preassignedCarrierCreditorNumber",
+          "description": "Pre-assigned carrier creditor number",
+          "example": "0000203512"
+        },
+        {
+          "qualifier": "transportMode",
+          "description": "Transport mode code",
+          "shipper_visibility": "YES",
+          "example": "RO"
+        },
+        {
+          "qualifier": "shippingPoint",
+          "description": "Shipping point identifier",
+          "shipper_visibility": "YES",
+          "example": "BCOT"
+        },
+        {
+          "qualifier": "ShipTo",
+          "description": "Ship-to location identifier",
+          "shipper_visibility": "YES",
+          "example": "0000017649"
+        }
+      ],
+      "optional": [
+        {
+          "qualifier": "salesorderNumber",
+          "description": "Sales order number",
+          "shipper_visibility": "YES",
+          "example": "/0001076772"
+        },
+        {
+          "qualifier": "shuttleTransport",
+          "description": "Shuttle transport flag",
+          "allowed_values": ["yes", "no"],
+          "default": "no"
+        },
+        {
+          "qualifier": "shuttleTransportAuto",
+          "description": "Auto shuttle transport flag", 
+          "allowed_values": ["yes", "no"],
+          "default": "no"
+        },
+        {
+          "qualifier": "CPUrecipient",
+          "description": "CPU recipient",
+          "shipper_visibility": "YES"
+        },
+        {
+          "qualifier": "CSRName",
+          "description": "Customer Service Representative name",
+          "shipper_visibility": "YES"
+        },
+        {
+          "qualifier": "CSREmail",
+          "description": "Customer Service Representative email",
+          "shipper_visibility": "YES"
+        },
+        {
+          "qualifier": "CSRPhone",
+          "description": "Customer Service Representative phone",
+          "shipper_visibility": "YES"
+        },
+        {
+          "qualifier": "OrderDate",
+          "description": "Order date in YYYYMMDD format",
+          "shipper_visibility": "YES",
+          "format": "YYYYMMDD",
+          "example": "20250915"
+        },
+        {
+          "qualifier": "material",
+          "description": "Material identifier",
+          "example": "0205LB"
+        },
+        {
+          "qualifier": "route",
+          "description": "Route identifier",
+          "example": "URO01"
+        },
+        {
+          "qualifier": "purchaseOrderNumber",
+          "description": "Purchase order number",
+          "example": "USMFG-PO-0015293"
+        },
+        {
+          "qualifier": "PGIDate",
+          "description": "Planned Goods Issue date",
+          "format": "From : YYYY-MM-DDTHH:mm:ssZ",
+          "example": "From : 2025-09-25T00:00:00Z"
+        }
+      ]
+    }
+  },
+  "transport_level_parameters": {
+    "complex_road": {
+      "optional": [
+        {
+          "qualifier": "numberofCombinedDeliveries",
+          "description": "Number of combined deliveries",
+          "shipper_visibility": "YES"
+        },
+        {
+          "qualifier": "combinedloadnumber",
+          "description": "Combined load number",
+          "shipper_visibility": "YES"
+        },
+        {
+          "qualifier": "transport.salesorderNumber",
+          "description": "Transport-level sales order number",
+          "shipper_visibility": "YES",
+          "example": "0001076772"
+        },
+        {
+          "qualifier": "transport.purchaseOrderNumber",
+          "description": "Transport-level purchase order number",
+          "shipper_visibility": "YES"
+        },
+        {
+          "qualifier": "transport.customerPONumber",
+          "description": "Customer PO number",
+          "shipper_visibility": "YES"
+        },
+        {
+          "qualifier": "custom.resend.carrierprint",
+          "description": "Resend carrier print flag"
+        },
+        {
+          "qualifier": "transport.shipperBillTo",
+          "description": "Shipper bill-to information",
+          "shipper_visibility": "YES"
+        }
+      ]
+    },
+    "simple_road": {
+      "optional": [
+        {
+          "qualifier": "custom.important.info",
+          "description": "Custom important information",
+          "value_type": "html",
+          "example": "<span style=\"color: #ff0000; font-size: 10pt;\"></span>"
+        }
+      ]
+    }
+  }
+}

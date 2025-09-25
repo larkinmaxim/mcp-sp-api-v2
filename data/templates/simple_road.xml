@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<transport_orders xmlns="http://xch.transporeon.com/soap/">
+    <transport_order xmlns="http://xch.transporeon.com/soap/">
+        <number>{transport_number}</number>
+        <status>{status}</status>
+        <scheduling_unit>{scheduling_unit}</scheduling_unit>
+        <vehicle>{vehicle}</vehicle>
+        <prices>
+            <reference>{price_reference}</reference>
+            <currency>{price_currency}</currency>
+            <mode>{price_mode}</mode>
+        </prices>
+        <orders>
+            <order_details>
+                <number>{order_number}</number>
+                {weight_element}
+                {loading_meter_element}
+                {distance_element}
+                {comment_element}
+                <loading_stop_ids>
+                    {loading_stop_ids}
+                </loading_stop_ids>
+                <unloading_stop_ids>
+                    {unloading_stop_ids}
+                </unloading_stop_ids>
+            </order_details>
+        </orders>
+        <stops>
+            {stops}
+        </stops>
+        {parameters_element}
+    </transport_order>
+</transport_orders>

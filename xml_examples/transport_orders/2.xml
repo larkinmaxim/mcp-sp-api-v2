@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<transport_orders xmlns="http://xch.transporeon.com/soap/">
+    <transport_order xmlns="http://xch.transporeon.com/soap/">
+        <number>0081310198</number>
+        <status>D</status>
+        <scheduling_unit>BCO</scheduling_unit>
+        <carrier_creditor_number>0000203512</carrier_creditor_number>
+        <weight>
+            <value>0.000</value>
+        </weight>
+        <volume>
+            <value>0.000</value>
+        </volume>
+        <orders>
+            <order_details>
+                <number>0081310198</number>
+                <incoterms>DAP</incoterms>
+                    <loading_stop_ids>
+                    <loading_stop_id>BCOT</loading_stop_id>
+                </loading_stop_ids>
+                <unloading_stop_ids>
+                    <unloading_stop_id>0000017649</unloading_stop_id>
+                </unloading_stop_ids>
+                <order_items>
+                    <order_item>
+                        <number>000010</number>
+                        <short_description>GLYCOL ETHER EB</short_description>
+                        <material_number>0205LB</material_number>
+                        <quantities>
+                            <quantity>
+                                <qualifier>weight</qualifier>
+                                <value>45000.0</value>
+                                <unit>LBR</unit>
+                            </quantity>
+                            <quantity>
+                                <qualifier>custom.unit.of.measurement</qualifier>
+                                <value>0.0</value>
+                            </quantity>
+                        </quantities>
+                        <parameters>
+                            <parameter qualifier="technicalDeviation" shipperVisibility="YES"/>
+                            <parameter qualifier="material" shipperVisibility="YES">
+                                <value>0205LB</value>
+                            </parameter>
+                            <parameter qualifier="plantCode" shipperVisibility="YES">
+                                <value>US61</value>
+                            </parameter>
+                            <parameter qualifier="customerMaterial">
+                                <value>0421598</value>
+                            </parameter>
+                            <parameter qualifier="unitOfMeasurement" shipperVisibility="YES">
+                                <value>LBR</value>
+                            </parameter>
+                        </parameters>
+                    </order_item>
+                </order_items>
+                <parameters>
+                    <parameter qualifier="custom.preassignedCarrierCreditorNumber">
+                        <value>0000203512</value>
+                    </parameter>
+                    <parameter qualifier="salesorderNumber" shipperVisibility="YES">
+                        <value> /0001076772</value>
+                    </parameter>
+                    <parameter qualifier="shuttleTransport">
+                        <value>no</value>
+                    </parameter>
+                    <parameter qualifier="shuttleTransportAuto">
+                        <value>no</value>
+                    </parameter>
+                    <parameter qualifier="CPUrecipient" shipperVisibility="YES"/>
+                    <parameter qualifier="CSRName" shipperVisibility="YES"/>
+                    <parameter qualifier="OrderDate" shipperVisibility="YES">
+                        <value>20250915</value>
+                    </parameter>
+                    <parameter qualifier="shippingPoint" shipperVisibility="YES">
+                        <value>BCOT</value>
+                    </parameter>
+                    <parameter qualifier="transportMode" shipperVisibility="YES">
+                        <value>RO</value>
+                    </parameter>
+                    <parameter qualifier="ShipTo" shipperVisibility="YES">
+                        <value>0000017649</value>
+                    </parameter>
+                    <parameter qualifier="material">
+                        <value>0205LB</value>
+                    </parameter>
+                    <parameter qualifier="route">
+                        <value>URO01</value>
+                    </parameter>
+                    <parameter qualifier="purchaseOrderNumber">
+                        <value>USMFG-PO-0015293</value>
+                    </parameter>
+                    <parameter qualifier="PGIDate">
+                        <value>From : 2025-09-25T00:00:00Z</value>
+                    </parameter>
+                    <parameter qualifier="CSREmail" shipperVisibility="YES"/>
+                    <parameter qualifier="CSRPhone" shipperVisibility="YES"/>
+                </parameters>
+            </order_details>
+        </orders>
+        <stops>
+            <stop>
+                <id>BCOT</id>
+                <index>0</index>
+                <location>
+                    <company_name>Bayport CO Truck Terminal</company_name>
+                    <street>5761 Underwood, BCO</street>
+                    <zip>77507</zip>
+                    <city>Pasadena</city>
+                    <state>TX</state>
+                    <country>US</country>
+                </location>
+                <date_time_period>
+                    <start>2025-09-25T00:00:00Z</start>
+                    <end>2025-09-26T23:59:00Z</end>
+                </date_time_period>
+            </stop>
+            <stop>
+                <id>0000017649</id>
+                <index>0</index>
+                <location>
+                    <company_name>THE SHERWIN WILLIAMS COMPANY</company_name>
+                    <street>701 SOUTH SHILOH RD DOCK 42</street>
+                    <zip>75042</zip>
+                    <city>GARLAND</city>
+                    <state>TX</state>
+                    <country>US</country>
+                    <comment>C/O VALSPAR PACKAGING</comment>
+                </location>
+                <date_time_period>
+                    <start>2025-09-26T09:00:00Z</start>
+                    <end>2025-09-26T09:00:00Z</end>
+                </date_time_period>
+            </stop>
+        </stops>
+        <parameters>
+            <parameter qualifier="numberofCombinedDeliveries" shipperVisibility="YES"/>
+            <parameter qualifier="combinedloadnumber" shipperVisibility="YES"/>
+            <parameter qualifier="transport.salesorderNumber" shipperVisibility="YES">
+                <value>0001076772</value>
+            </parameter>
+            <parameter qualifier="transport.purchaseOrderNumber" shipperVisibility="YES"/>
+            <parameter qualifier="transport.customerPONumber" shipperVisibility="YES"/>
+            <parameter qualifier="custom.resend.carrierprint"/>
+            <parameter qualifier="transport.shipperBillTo" shipperVisibility="YES"/>
+        </parameters>
+    </transport_order>
+</transport_orders>

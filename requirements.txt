@@ -1,0 +1,15 @@
+# FastMCP Transport Order XML Generator - All Dependencies
+
+# Core FastMCP framework
+fastmcp>=2.12.3
+
+# HTTP requests for Transporeon API calls
+requests>=2.31.0
+
+# ASGI servers for production deployment  
+uvicorn[standard]>=0.24.0
+gunicorn>=21.0.0
+
+# Additional utilities for enhanced performance (optional)
+python-dateutil>=2.8.0
+ujson>=5.0.0

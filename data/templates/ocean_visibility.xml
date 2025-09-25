@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<transport_orders xmlns="http://xch.transporeon.com/soap/">
+    <transport_order xmlns="http://xch.transporeon.com/soap/">
+        <number>{transport_number}</number>
+        <status>NTO</status>
+        <scheduling_unit>Ocean Visibility</scheduling_unit>
+        <carrier_creditor_number>Ocean</carrier_creditor_number>
+        <orders>
+            <order_details>
+                <number>{order_number}</number>
+                <status>N</status>
+                <scheduling_unit>Ocean Visibility</scheduling_unit>
+                <loading_stop_ids>
+                    <loading_stop_id>Departure</loading_stop_id>
+                </loading_stop_ids>
+                <unloading_stop_ids>
+                    <unloading_stop_id>Arrival</unloading_stop_id>
+                </unloading_stop_ids>
+            </order_details>
+        </orders>
+        <stops>
+            <stop>
+                <id>Departure</id>
+                <index>0</index>
+                <location>
+                    <company_name>{departure_company_name}</company_name>
+                    <street>{departure_street}</street>
+                    <zip>{departure_zip}</zip>
+                    <city>{departure_city}</city>
+                    <country>{departure_country}</country>
+                </location>
+                <date_time_period>
+                    <start>{departure_start_date}</start>
+                    <end>{departure_end_date}</end>
+                </date_time_period>
+            </stop>
+            <stop>
+                <id>Arrival</id>
+                <index>1</index>
+                <location>
+                    <company_name>{arrival_company_name}</company_name>
+                    <street>{arrival_street}</street>
+                    <zip>{arrival_zip}</zip>
+                    <city>{arrival_city}</city>
+                    <country>{arrival_country}</country>
+                </location>
+                <date_time_period>
+                    <start>{arrival_start_date}</start>
+                    <end>{arrival_end_date}</end>
+                </date_time_period>
+            </stop>
+        </stops>
+        <parameters>
+            <parameter qualifier="visibility.ocean.product" shipperVisibility="YES" exportToCarrier="YES">
+                <value>true</value>
+            </parameter>
+            <parameter qualifier="ocean.scac.no" shipperVisibility="YES" exportToCarrier="YES">
+                <value>{scac_code}</value>
+            </parameter>
+            <parameter qualifier="ocean.booking.no" shipperVisibility="YES" exportToCarrier="YES">
+                <value>{booking_number}</value>
+            </parameter>
+            <parameter qualifier="ocean.bl.no" shipperVisibility="YES" exportToCarrier="YES">
+                <value>{bl_number}</value>
+            </parameter>
+            <parameter qualifier="ocean.container.no" shipperVisibility="YES" exportToCarrier="YES">
+                <value>{container_number}</value>
+            </parameter>
+        </parameters>
+    </transport_order>
+</transport_orders>

@@ -1,0 +1,87 @@
+{
+  "ocean_visibility": {
+    "mandatory_fixed_values": {
+      "scheduling_unit": "Ocean Visibility",
+      "carrier_creditor_number": "Ocean",
+      "status": "NTO",
+      "order_status": "N",
+      "order_scheduling_unit": "Ocean Visibility"
+    },
+    "mandatory_fixed_parameters": {
+      "visibility.ocean.product": {
+        "value": "true",
+        "shipper_visibility": "YES",
+        "export_to_carrier": "YES",
+        "description": "Identifies the transport order as an ocean visibility product"
+      }
+    }
+  },
+  "simple_road": {
+    "default_values": {
+      "status": "N",
+      "price_currency": "EUR",
+      "price_mode": "DEFAULT"
+    }
+  },
+  "complex_road": {
+    "default_values": {
+      "status": "N",
+      "weight_value": 0.0,
+      "volume_value": 0.0
+    }
+  },
+  "common_stop_defaults": {
+    "departure_stop": {
+      "id": "Departure",
+      "index": 0
+    },
+    "arrival_stop": {
+      "id": "Arrival", 
+      "index": 1
+    }
+  },
+  "parameter_attributes": {
+    "shipper_visibility_options": ["YES", "NO"],
+    "export_to_carrier_options": ["YES", "NO"],
+    "common_qualifiers": {
+      "visibility.ocean.product": {
+        "required_for": ["ocean_visibility"],
+        "value": "true",
+        "attributes": {
+          "shipper_visibility": "YES",
+          "export_to_carrier": "YES"
+        }
+      },
+      "ocean.scac.no": {
+        "required_for": ["ocean_visibility"],
+        "validation_pattern": "^[A-Z0-9]{4}$",
+        "attributes": {
+          "shipper_visibility": "YES",
+          "export_to_carrier": "YES"
+        }
+      },
+      "ocean.bl.no": {
+        "required_for": ["ocean_visibility"],
+        "attributes": {
+          "shipper_visibility": "YES", 
+          "export_to_carrier": "YES"
+        }
+      },
+      "ocean.container.no": {
+        "required_for": ["ocean_visibility"],
+        "attributes": {
+          "shipper_visibility": "YES",
+          "export_to_carrier": "YES"
+        }
+      },
+      "ocean.booking.no": {
+        "required_for": ["ocean_visibility"],
+        "required": false,
+        "attributes": {
+          "shipper_visibility": "YES",
+          "export_to_carrier": "YES"
+        }
+      }
+    }
+  }
+}

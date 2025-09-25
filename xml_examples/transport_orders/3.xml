@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<transport_orders xmlns="http://xch.transporeon.com/soap/">
+    <transport_order xmlns="http://xch.transporeon.com/soap/">
+            <number>4500831479-20</number>
+            <status>NTO</status>
+            <scheduling_unit>Ocean Visibility</scheduling_unit>
+            <carrier_creditor_number>Ocean</carrier_creditor_number>
+            <orders>
+                <order_details>
+                    <number>4500831479-20</number>
+                    <status>N</status>
+                    <scheduling_unit>Ocean Visibility</scheduling_unit>
+                    <loading_stop_ids>
+                        <loading_stop_id>Departure</loading_stop_id>
+                    </loading_stop_ids>
+                    <unloading_stop_ids>
+                        <unloading_stop_id>Arrival</unloading_stop_id>
+                    </unloading_stop_ids>
+                </order_details>
+            </orders>
+            <stops>
+                <stop>
+                    <id>Departure</id>
+                    <index>0</index>
+                    <location>
+                        <company_name>Camimex Joint Stock Company</company_name>
+                        <street>Cao Thang Street</street>
+                        <zip></zip>
+                        <city>Ca Mau City</city>
+                        <country>VN</country>
+                    </location>
+                    <date_time_period>
+                        <start>2025-07-13T00:00:00+02:00</start>
+                        <end>2025-07-13T00:00:00+02:00</end>
+                    </date_time_period>
+                </stop>
+                <stop>
+                    <id>Arrival</id>
+                    <index>1</index>
+                    <location>
+                        <company_name>Factory Bremerhaven DE</company_name>
+                        <street>Am Lunedeich</street>
+                        <zip>27572</zip>
+                        <city>Bremerhaven</city>
+                        <country>DE</country>
+                    </location>
+                    <date_time_period>
+                        <start>2025-10-11T00:00:00+02:00</start>
+                        <end>2025-10-11T00:00:00+02:00</end>
+                    </date_time_period>
+                </stop>
+            </stops>
+            <parameters>
+                <parameter qualifier="visibility.ocean.product" shipperVisibility="YES" exportToCarrier="YES">
+                    <value>true</value>
+                </parameter>
+                <parameter qualifier="ocean.scac.no" shipperVisibility="YES" exportToCarrier="YES">
+                    <value>MAEU</value>
+                </parameter>
+                <parameter qualifier="ocean.booking.no" shipperVisibility="YES" exportToCarrier="YES">
+                    <value></value>
+                </parameter>
+                <parameter qualifier="ocean.bl.no" shipperVisibility="YES" exportToCarrier="YES">
+                    <value>MAEU258327258</value>
+                </parameter>
+                <parameter qualifier="ocean.container.no" shipperVisibility="YES" exportToCarrier="YES">
+                    <value>MMAU1291440</value>
+                </parameter>
+            </parameters>
+        </transport_order>
+    </transport_orders>
