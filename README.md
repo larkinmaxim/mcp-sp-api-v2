@@ -1,290 +1,234 @@
-# TP-API-MCP Sample Server
+# Transport Order XML Generator Tool
 
-A comprehensive FastMCP (Model Context Protocol) server demonstrating various features and capabilities of the FastMCP framework. This sample server includes tools for mathematical operations, text processing, data analysis, utility functions, async operations, and context-aware functionality.
+A FastMCP-based tool that generates valid transport order XML files based on user input. Supports three transport order types: Simple/Standard Road Freight, Complex Road Freight (with parameters), and Ocean Visibility Transport.
 
-## 🚀 Features
+## Features
 
-### Basic Tools
-- **Multi-language Greetings**: Greet users in different languages (English, Spanish, French, German, Italian, Portuguese)
-- **Time Functions**: Get current date and time with custom formatting
-- **Random Number Generation**: Generate random numbers within specified ranges
+- **Three Transport Types**: Simple Road, Complex Road, and Ocean Visibility
+- **Smart Parameter Collection**: Context-aware user input collection
+- **XML DOM Manipulation**: Reliable and valid XML generation
+- **Hybrid Validation**: Structural and business rule validation
+- **Factory Pattern Architecture**: Clean, extensible code organization
 
-### Mathematical Operations
-- **Safe Expression Evaluation**: Calculate mathematical expressions safely
-- **List Operations**: Perform sum, average, min, max, count, and product operations on number lists
+## Architecture
 
-### Text Processing
-- **Text Transformations**: Uppercase, lowercase, title case, reverse, word count, character count
-- **List Analysis**: Analyze lists for duplicates, unique items, statistics
+```
+/tools/
+├── __init__.py
+├── main_tool.py                 # FastMCP tool definitions
+├── generators/
+│   ├── __init__.py
+│   ├── base_generator.py        # Base generator class
+│   ├── simple_road.py           # Simple road freight generator
+│   ├── complex_road.py          # Complex road freight generator
+│   └── ocean_visibility.py      # Ocean transport generator
+├── validation/
+│   ├── __init__.py
+│   ├── structural_validator.py  # XML structure validation
+│   └── business_validator.py    # Business rule validation
+├── utils/
+│   ├── __init__.py
+│   ├── template_loader.py       # Template loading utilities
+│   ├── xml_builder.py          # XML DOM manipulation
+│   └── parameter_collector.py   # Smart parameter collection
+└── data/                        # Configuration and templates
+    ├── templates/               # XML templates
+    ├── parameters/             # Parameter definitions
+    ├── validation/             # Validation rules
+    └── examples/              # Reference examples
+```
 
-### Utility Functions
-- **Todo List Creator**: Create formatted todo lists with priority levels
-- **Password Generator**: Generate secure passwords with customizable criteria
+## Installation
 
-### Advanced Features
-- **Async Operations**: Countdown timer and random fact fetcher with async support
-- **Context-Aware Tools**: Smart text summarization using LLM sampling
-- **Error Handling**: Robust error handling with informative responses
-- **Resources**: Structured data provision (server info, API examples)
-- **Prompts**: Template prompts for code review and concept explanation
-
-## 📦 Installation
-
-### Prerequisites
-- Python 3.10 or higher
-- FastMCP library
-
-### Install FastMCP
+1. Install dependencies:
 ```bash
-# Using uv (recommended)
-uv add fastmcp
-
-# Or using pip
-pip install fastmcp
+pip install -r requirements.txt
 ```
 
-### Clone and Setup
+2. Run the FastMCP server:
+
+**Development (stdio transport):**
 ```bash
-git clone <your-repo-url>
-cd TP_API_mcp
+python tools/main_tool.py
 ```
 
-## 🏃‍♂️ Running the Server
-
-### Method 1: Direct Python Execution
+**Production (streamable HTTP transport):**
 ```bash
-python main.py
+python server.py
 ```
 
-### Method 2: Using FastMCP CLI
+**ASGI deployment with Uvicorn:**
 ```bash
-# Basic run
-fastmcp run main.py
-
-# With configuration file
-fastmcp run
-
-# Development mode with Inspector UI
-fastmcp dev main.py
+uvicorn asgi_app:asgi_app --host 0.0.0.0 --port 8000
 ```
 
-### Method 3: HTTP Transport
+**ASGI deployment with Gunicorn:**
 ```bash
-fastmcp run main.py --transport http --port 8000
+gunicorn asgi_app:asgi_app -w 4 -k uvicorn.workers.UvicornWorker --bind 0.0.0.0:8000
 ```
 
-## 🛠️ Available Tools
+## Available Tools
 
-### Basic Tools
+### 1. generate_transport_order_xml
+Generate valid transport order XML based on user input.
 
-#### `greet(name: str, language: str = "english") -> str`
-Greet a person in different languages.
+**Parameters:**
+- `transport_type`: "simple_road", "complex_road", or "ocean_visibility"
+- Additional parameters specific to transport type
 
-**Example:**
+### 2. validate_transport_order_xml
+Validate existing transport order XML content.
+
+**Parameters:**
+- `xml_content`: XML string to validate
+- `transport_type`: Expected transport type
+
+### 3. get_transport_type_info
+Get detailed information about a specific transport type.
+
+**Parameters:**
+- `transport_type`: Transport type to get info for
+
+### 4. get_available_transport_types
+Get list of all available transport types.
+
+### 5. get_transport_order_example
+Get example XML and input data for a transport type.
+
+**Parameters:**
+- `transport_type`: Transport type to get example for
+
+### 6. get_parameter_requirements
+Get detailed parameter requirements for a transport type.
+
+**Parameters:**
+- `transport_type`: Transport type to get requirements for
+
+## Transport Types
+
+### Simple Road Freight
+Basic transport orders with stops, optional pricing, and vehicle information.
+
+**Required Fields:**
+- number, status, scheduling_unit
+- At least 2 stops (loading and unloading)
+
+**Optional Fields:**
+- vehicle, pricing, weight, distance, comments, custom parameters
+
+### Complex Road Freight  
+Advanced transport orders with order items, parameters, and carrier information.
+
+**Required Fields:**
+- number, status, scheduling_unit, carrier_creditor_number
+- Order items with quantities and parameters
+
+**Features:**
+- Hierarchical parameters (transport, order, item levels)
+- Carrier creditor number validation
+- Extensive parameter support
+
+### Ocean Visibility Transport
+Maritime shipment tracking with mandatory ocean-specific parameters.
+
+**Fixed Values:**
+- scheduling_unit: "Ocean Visibility"
+- carrier_creditor_number: "Ocean"  
+- status: "NTO"
+
+**Required Parameters:**
+- ocean.scac.no (4-character SCAC code)
+- ocean.bl.no (Bill of Lading number)
+- ocean.container.no (Container number)
+- visibility.ocean.product: "true"
+
+## Example Usage
+
+### Simple Road Freight
 ```python
-# English (default)
-greet(name="Alice")
-# Returns: "Hello, Alice!"
-
-# Spanish
-greet(name="Alice", language="spanish")
-# Returns: "¡Hola, Alice!"
+result = generate_transport_order_xml(
+    transport_type="simple_road",
+    number="1404338",
+    status="N", 
+    scheduling_unit="Wörth",
+    vehicle="MEGA:Stehend",
+    price_reference=845.0,
+    loading_stop_ids=["1"],
+    unloading_stop_ids=["2"],
+    stops=[
+        {
+            "id": "1",
+            "location": {
+                "company_name": "Loading Company",
+                "city": "Loading City",
+                "country": "DE"
+            },
+            "date_time_period": {
+                "start": "2025-09-25T00:00:00+02:00",
+                "end": "2025-09-25T23:59:00+02:00"
+            }
+        },
+        # ... unloading stop
+    ]
+)
 ```
 
-#### `get_current_time(format: str = "%Y-%m-%d %H:%M:%S") -> str`
-Get current date and time with custom formatting.
-
-**Example:**
+### Ocean Visibility
 ```python
-get_current_time()
-# Returns: "2024-01-15 14:30:45"
-
-get_current_time(format="%B %d, %Y at %I:%M %p")
-# Returns: "January 15, 2024 at 02:30 PM"
+result = generate_transport_order_xml(
+    transport_type="ocean_visibility",
+    number="4500831479-20",
+    **{
+        "ocean.scac.no": "MAEU",
+        "ocean.bl.no": "MAEU258327258", 
+        "ocean.container.no": "MMAU1291440",
+        "departure_location": {
+            "company_name": "Port of Origin",
+            "city": "Origin City",
+            "country": "VN"
+        },
+        "arrival_location": {
+            "company_name": "Port of Destination", 
+            "city": "Destination City",
+            "country": "DE"
+        },
+        # ... date periods
+    }
+)
 ```
 
-### Mathematical Tools
+## Validation
 
-#### `calculate(expression: str) -> Dict[str, Any]`
-Safely evaluate mathematical expressions.
+The tool includes comprehensive validation:
 
-**Example:**
-```python
-calculate(expression="2 + 2 * 3")
-# Returns: {"expression": "2 + 2 * 3", "result": 8, "type": "int"}
-```
+- **Structural Validation**: XML well-formedness, required elements, format validation
+- **Business Rule Validation**: Transport-specific rules, parameter restrictions
+- **Cross-field Validation**: Consistency checks, date sequences, stop references
 
-#### `math_operations(numbers: List[float], operation: str) -> Dict[str, Any]`
-Perform mathematical operations on lists.
+## Error Handling
 
-**Example:**
-```python
-math_operations(numbers=[1, 2, 3, 4, 5], operation="average")
-# Returns: {"numbers": [1,2,3,4,5], "operation": "average", "result": 3.0}
-```
+All tools return structured responses with:
+- `success`: Boolean indicating operation success
+- `error_type`: Category of error if any
+- `errors`: List of error messages
+- `warnings`: List of warning messages
+- `missing_required`: Required fields that need to be provided
 
-### Text Processing Tools
+## Development
 
-#### `process_text(text: str, operation: str) -> Dict[str, Any]`
-Process text with various operations.
+### Adding New Transport Types
 
-**Available operations:** `uppercase`, `lowercase`, `title`, `reverse`, `word_count`, `char_count`, `remove_spaces`
+1. Create generator class extending `BaseGenerator`
+2. Add templates and parameter configurations
+3. Update factory registration
+4. Add validation rules
 
-**Example:**
-```python
-process_text(text="Hello World", operation="uppercase")
-# Returns: {"original": "Hello World", "operation": "uppercase", "result": "HELLO WORLD"}
-```
+### Extending Validation
 
-#### `analyze_list(items: List[str]) -> Dict[str, Any]`
-Analyze a list of items and provide statistics.
+1. Update validation rule JSON files
+2. Implement custom validation methods
+3. Add business-specific logic
 
-**Example:**
-```python
-analyze_list(items=["apple", "banana", "apple", "cherry"])
-# Returns: {
-#   "total_items": 4,
-#   "unique_items": 3,
-#   "unique_list": ["apple", "banana", "cherry"],
-#   "duplicates": ["apple"],
-#   "longest_item": "banana",
-#   "shortest_item": "apple",
-#   "average_length": 5.5
-# }
-```
+## License
 
-### Utility Tools
-
-#### `create_todo_list(tasks: List[str], priority: str = "medium") -> Dict[str, Any]`
-Create formatted todo lists with priorities.
-
-**Priority levels:** `high` (🔴), `medium` (🟡), `low` (🟢)
-
-#### `password_generator(length: int = 12, include_special: bool = True) -> Dict[str, Any]`
-Generate secure passwords with strength assessment.
-
-### Async Tools
-
-#### `async_countdown(seconds: int) -> Dict[str, Any]`
-Simulate an async countdown operation (1-10 seconds).
-
-#### `fetch_random_fact() -> Dict[str, Any]`
-Fetch a random interesting fact with simulated network delay.
-
-### Context-Aware Tools
-
-#### `smart_summary(text: str, max_sentences: int = 3, ctx: Context = None) -> str`
-Create intelligent text summaries using LLM sampling when context is available.
-
-## 📊 Resources
-
-### `server-info`
-Get comprehensive information about the server including features and metadata.
-
-### `api-examples`
-Get example API calls for all available tools with sample parameters.
-
-## 📝 Prompts
-
-### `code-review`
-Generate comprehensive code review prompts with structured feedback guidelines.
-
-### `explain-concept` 
-Generate prompts for explaining concepts to different audiences.
-
-## 🧪 Testing the Server
-
-### Using FastMCP Client
-```python
-import asyncio
-from fastmcp import Client
-
-async def test_server():
-    client = Client("main.py")  # or Client("http://localhost:8000")
-    
-    async with client:
-        # Test basic greeting
-        result = await client.call_tool("greet", {"name": "World", "language": "french"})
-        print(result.data)  # "Bonjour, World!"
-        
-        # Test calculation
-        result = await client.call_tool("calculate", {"expression": "10 + 5 * 2"})
-        print(result.data)  # {"expression": "10 + 5 * 2", "result": 20, "type": "int"}
-
-asyncio.run(test_server())
-```
-
-### Using curl (HTTP transport)
-```bash
-# Start server with HTTP transport
-fastmcp run main.py --transport http --port 8000
-
-# Test endpoint
-curl -X POST http://localhost:8000/tools/greet \
-  -H "Content-Type: application/json" \
-  -d '{"name": "World", "language": "spanish"}'
-```
-
-## 🔧 Configuration
-
-The server includes a `fastmcp.json` configuration file with:
-- Source path and entrypoint configuration
-- Environment setup with Python version requirements
-- Deployment settings for transport and logging
-- Metadata including description, version, and tags
-
-## 🐛 Error Handling
-
-The server includes comprehensive error handling:
-- Input validation with helpful error messages
-- Safe mathematical expression evaluation
-- Graceful fallbacks for context-dependent operations
-- Detailed error responses with context information
-
-## 📚 Development
-
-### Development Mode
-```bash
-# Start with Inspector UI for debugging
-fastmcp dev main.py
-
-# This will start the server and open a web interface for inspection
-```
-
-### Adding New Tools
-1. Define your function with proper type hints
-2. Add the `@mcp.tool` decorator
-3. Include a comprehensive docstring
-4. Handle errors gracefully
-5. Return structured data when appropriate
-
-**Example:**
-```python
-@mcp.tool
-def your_new_tool(param: str) -> Dict[str, Any]:
-    """Description of what your tool does."""
-    try:
-        # Your logic here
-        result = process_param(param)
-        return {"input": param, "output": result}
-    except Exception as e:
-        return {"error": str(e), "input": param}
-```
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Add your improvements
-4. Test thoroughly
-5. Submit a pull request
-
-## 📄 License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## 🙏 Acknowledgments
-
-- Built with [FastMCP](https://github.com/jlowin/fastmcp)
-- Inspired by the Model Context Protocol (MCP) specification
-- Thanks to the FastMCP community for excellent documentation and examples
+This tool is part of the Transport Order Management system.
