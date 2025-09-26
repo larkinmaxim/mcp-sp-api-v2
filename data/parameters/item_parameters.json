@@ -1,7 +1,7 @@
 {
   "complex_road": {
     "order_item_parameters": {
-      "required": [
+      "optional": [
         {
           "qualifier": "material",
           "description": "Material identifier",
@@ -19,9 +19,7 @@
           "description": "Unit of measurement for the item",
           "shipper_visibility": "YES",
           "example": "LBR"
-        }
-      ],
-      "optional": [
+        },
         {
           "qualifier": "technicalDeviation",
           "description": "Technical deviation flag",
@@ -38,7 +36,7 @@
   },
   "order_level_parameters": {
     "complex_road": {
-      "required": [
+      "optional": [
         {
           "qualifier": "custom.preassignedCarrierCreditorNumber",
           "description": "Pre-assigned carrier creditor number",
@@ -61,9 +59,7 @@
           "description": "Ship-to location identifier",
           "shipper_visibility": "YES",
           "example": "0000017649"
-        }
-      ],
-      "optional": [
+        },
         {
           "qualifier": "salesorderNumber",
           "description": "Sales order number",
@@ -127,8 +123,8 @@
         {
           "qualifier": "PGIDate",
           "description": "Planned Goods Issue date",
-          "format": "From : YYYY-MM-DDTHH:mm:ssZ",
-          "example": "From : 2025-09-25T00:00:00Z"
+          "format": "YYYY-MM-DDTHH:mm:ssZ",
+          "example": "2025-09-25T00:00:00Z"
         }
       ]
     }

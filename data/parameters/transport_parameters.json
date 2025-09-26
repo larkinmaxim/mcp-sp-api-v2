@@ -1,17 +1,61 @@
 {
+  "business_rules": [
+    {
+      "id": "carrier_id_mapping_rule",
+      "description": "If user provides any id or number about carrier, this should be considered as carrier_creditor_number",
+      "condition": {
+        "field_patterns": [
+          "carrier_id",
+          "carrier_number", 
+          "carrier_code",
+          "carrier"
+        ],
+        "operator": "field_name_match"
+      },
+      "action": {
+        "type": "field_mapping",
+        "target_field": "carrier_creditor_number",
+        "source_field": "matched_field"
+      },
+      "applies_to": ["simple_road", "complex_road", "ocean_visibility"],
+      "priority": 1,
+      "note": "This rule automatically maps various carrier-related field names to the standardized carrier_creditor_number field"
+    },
+    {
+      "id": "carrier_creditor_status_rule",
+      "description": "If carrier_creditor_number has value then status is NTO",
+      "condition": {
+        "field": "carrier_creditor_number",
+        "operator": "has_value"
+      },
+      "action": {
+        "field": "status",
+        "value": "NTO"
+      },
+      "applies_to": ["simple_road", "complex_road", "ocean_visibility"],
+      "priority": 2
+    }
+  ],
   "simple_road": {
     "required_fields": [
       {
         "name": "scheduling_unit",
         "type": "string",
         "description": "The scheduling unit for the transport order",
-        "example": "Wörth"
+        "example": "Standard"
       },
       {
         "name": "status",
         "type": "string",
         "description": "Transport order status",
-        "allowed_values": ["N", "D", "P", "C"],
+        "allowed_values": [ "N", "D", "NTO", "BC", "AP" ],
+        "status_descriptions": {
+          "N": "New - New transport order awaiting assignment",
+          "D": "Delete - Transport order to be deleted",
+          "NTO": "No-Touch order - Pre-assigned carrier, no manual intervention needed",
+          "BC": "Best Carrier - System will select best available carrier",
+          "AP": "Autonomous procurement - Automated carrier selection and booking"
+        },
         "default": "N",
         "example": "N"
       },
@@ -27,7 +71,7 @@
         "name": "vehicle",
         "type": "string",
         "description": "Vehicle type specification",
-        "example": "MEGA:Stehend",
+        "example": "Megatrailer",
         "required": false
       },
       {
@@ -81,9 +125,16 @@
         "name": "status",
         "type": "string",
         "description": "Transport order status",
-        "allowed_values": ["N", "D", "P", "C"],
-        "default": "D",
-        "example": "D"
+        "allowed_values": [ "N", "D", "NTO", "BC", "AP" ],
+        "status_descriptions": {
+          "N": "New - New transport order awaiting assignment",
+          "D": "Delete - Transport order to be deleted",
+          "NTO": "No-Touch order - Pre-assigned carrier, no manual intervention needed",
+          "BC": "Best Carrier - System will select best available carrier",
+          "AP": "Autonomous procurement - Automated carrier selection and booking"
+        },
+        "default": "N",
+        "example": "N"
       },
       {
         "name": "number",

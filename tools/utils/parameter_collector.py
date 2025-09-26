@@ -5,6 +5,7 @@ Smart parameter collection utility for context-aware user input collection.
 from typing import Dict, Any, List, Optional, Union
 import re
 from datetime import datetime
+from .business_rules_processor import BusinessRulesProcessor
 
 
 class ParameterCollector:
@@ -13,6 +14,7 @@ class ParameterCollector:
     def __init__(self, template_loader):
         """Initialize parameter collector with template loader."""
         self.template_loader = template_loader
+        self.business_rules_processor = BusinessRulesProcessor(template_loader)
     
     def collect_basic_transport_info(self, transport_type: str, user_input: Dict[str, Any]) -> Dict[str, Any]:
         """Collect basic transport order information."""
@@ -47,6 +49,9 @@ class ParameterCollector:
                     result[field_name] = user_input[field_name]
                 elif "default" in field:
                     result[field_name] = field["default"]
+        
+        # Apply business rules
+        result = self.business_rules_processor.apply_business_rules(transport_type, user_input, result)
         
         return result
     
